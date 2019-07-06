@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "2b308fcd-6f0d-4575-a0b0-1f7c34b19d80",
+		"name": "cloud-cdnd-c2-final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8082/filteredimage?image_url=https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOST}}/filteredimage?image_url=https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"filteredimage"
+					],
+					"query": [
+						{
+							"key": "image_url",
+							"value": "https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elastic Beanstalk request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{EB_URL}}/filteredimage?image_url=https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg",
+					"protocol": "http",
+					"host": [
+						"{{EB_URL}}"
+					],
+					"path": [
+						"filteredimage"
+					],
+					"query": [
+						{
+							"key": "image_url",
+							"value": "https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5887df52-1889-4e1f-82ee-054ab37b450a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5e332dfe-c833-430b-b947-ab6c00311c28",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "3dc53127-1b6c-4690-b739-a538609b426e",
+			"key": "HOST",
+			"value": "localhost:8082",
+			"type": "string"
+		},
+		{
+			"id": "361462b1-2e84-4caa-aa4d-657eccddd0f9",
+			"key": "EB_URL",
+			"value": "udacity-imagefilter-dev.us-east-1.elasticbeanstalk.com",
+			"type": "string"
+		}
+	]
+}

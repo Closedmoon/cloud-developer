@@ -2,7 +2,6 @@ import { Router, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 const isImageUrl = require('is-image-url');
 import {filterImageFromURL, deleteLocalFiles} from '../../../util/util';
-import { runInNewContext } from 'vm';
 
 const router: Router = Router();
 router.use(bodyParser.json());
