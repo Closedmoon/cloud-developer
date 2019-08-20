@@ -9,6 +9,8 @@ import { JwtPayload } from '../../auth/JwtPayload'
 
 const logger = createLogger('auth')
 
+const secret = ''
+
 const jwksUrl = 'https://test-endpoint.auth0.com/.well-known/jwks.json'
 
 export const handler = async (
@@ -56,7 +58,7 @@ async function verifyToken(authHeader: string): Promise<JwtPayload> {
   const jwt: Jwt = decode(token, { complete: true }) as Jwt
 
   // TODO: Implement token verification
-  return undefined
+  return verify(token, secret, {algorithms: ['RS256'] }) as JwtPayload
 }
 
 function getToken(authHeader: string): string {
