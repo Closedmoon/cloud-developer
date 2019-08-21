@@ -32,3 +32,7 @@ export async function getTodos(userId: string):Promise<TodoItem[]> {
 export async function getUploadUrl(todoId: string) {
     return await todoAccess.getUploadUrl(todoId)
 }
+
+export async function deleteTodo(todoId: string) {
+    return await todoAccess.deleteTodo(todoId)
+}

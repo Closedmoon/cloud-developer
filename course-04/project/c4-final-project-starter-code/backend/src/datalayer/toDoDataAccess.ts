@@ -45,6 +45,16 @@ export class TodoDataAccess {
           })
     }
 
+    async deleteTodo(todoId: string) {
+        this.docClient.delete({
+            TableName: this.todoTable,
+            Key: {
+                "todoId":todoId
+            }
+
+        })
+    }
+
 }
 
 function createDynamoDBClient() {
