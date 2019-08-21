@@ -23,3 +23,12 @@ export async function createTodo(
         })
      
     }
+
+export async function getTodos(userId: string):Promise<TodoItem[]> {
+
+    return await todoAccess.getTodos(userId)
+}
+
+export async function getUploadUrl(todoId: string) {
+    return await todoAccess.getUploadUrl(todoId)
+}
