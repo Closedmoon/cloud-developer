@@ -1,8 +1,12 @@
 import * as uuid from 'uuid'
 
 import {TodoItem} from '../models/TodoItem'
+import {TodoUpdate} from '../models/TodoUpdate'
 import {TodoDataAccess} from '../datalayer/toDoDataAccess'
 import {CreateTodoRequest} from '../requests/CreateTodoRequest'
+import {UpdateTodoRequest} from '../requests/UpdateTodoRequest'
+
+const bucketName = process.env.IMAGES_S3_BUCKET
 
 const todoAccess = new TodoDataAccess()
 
@@ -19,7 +23,7 @@ export async function createTodo(
             dueDate: createTodoRequest.dueDate,
             done: false,
             createdAt: new Date().toISOString(),
-            attachmentUrl: ''
+            attachmentUrl: `https://${bucketName}.s3.amazonaws.com/${itemId}`
         })
      
     }
@@ -35,4 +39,12 @@ export async function getUploadUrl(todoId: string) {
 
 export async function deleteTodo(todoId: string) {
     return await todoAccess.deleteTodo(todoId)
+}
+
+export async function updateTodo(todoId: string, updatedTodo: UpdateTodoRequest) {
+    return await todoAccess.updateTodo(todoId, {
+        name: updateTodo.name,
+        dueDate: updatedTodo.dueDate,
+        done: updatedTodo.done
+    })
 }

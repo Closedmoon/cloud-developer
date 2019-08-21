@@ -1,6 +1,7 @@
 import * as AWS from 'aws-sdk'
 
 import { TodoItem } from '../models/TodoItem'
+import { TodoUpdate } from '../models/TodoUpdate'
 
 export class TodoDataAccess {
 
@@ -53,6 +54,22 @@ export class TodoDataAccess {
             }
 
         })
+    }
+
+    async updateTodo(todoId: string, todoUpdate: TodoUpdate) {
+        this.docClient.update({
+            TableName: this.todoTable,
+            Key: {
+                'todoId' : todoId
+            },
+            UpdateExpression: 'set name = :n, duedate = :d, done = :e',
+            ExpressionAttributeValues: {
+                ':n': todoUpdate.name,
+                ':d': todoUpdate.dueDate,
+                ':e': todoUpdate.done
+            }
+        })
+
     }
 
 }
