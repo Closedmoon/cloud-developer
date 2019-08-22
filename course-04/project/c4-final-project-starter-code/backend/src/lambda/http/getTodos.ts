@@ -8,7 +8,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   // TODO: Get all TODO items for a current user
   const userId = getUserId(event)
 
-  const items = getTodos(userId)
+  const todos = await getTodos(userId)
 
   return {
     statusCode : 200,
@@ -17,9 +17,8 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       'Access-Control-Allow-Credentials': true
     },
     body: JSON.stringify({
-      items
+      todos
     })
   }
-
 
 }

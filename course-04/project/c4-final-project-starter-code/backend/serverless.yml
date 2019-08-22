@@ -13,7 +13,7 @@ provider:
   region: ${opt:region, 'us-east-1'}
 
   environment:
-    TODO_TABLE: Todos-${self:provider.stage}
+    TODO_TABLE: TodosData-${self:provider.stage}
     IMAGES_S3_BUCKET: srvrless-todoimages-mk9239-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     INDEX_NAME: UserIdIndex
@@ -28,6 +28,11 @@ provider:
         - dynamodb:Query
         - dynamodb:UpdateItem
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}
+    
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODO_TABLE}/index/${self:provider.environment.INDEX_NAME}
 
     - Effect: Allow
       Action:
@@ -108,13 +113,11 @@ resources:
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:provider.environment.TODO_TABLE}
-        LocalSecondaryIndexes:
+        GlobalSecondaryIndexes:
         - IndexName: ${self:provider.environment.INDEX_NAME}
           KeySchema:
-            - AttributeName: todoId
-              KeyType: HASH
             - AttributeName: userId
-              KeyType: RANGE
+              KeyType: HASH
           Projection:
             ProjectionType: ALL # What attributes will be copied to an index
 
