@@ -1,7 +1,7 @@
 import * as uuid from 'uuid'
 
 import {TodoItem} from '../models/TodoItem'
-import {TodoUpdate} from '../models/TodoUpdate'
+
 import {TodoDataAccess} from '../datalayer/toDoDataAccess'
 import {CreateTodoRequest} from '../requests/CreateTodoRequest'
 import {UpdateTodoRequest} from '../requests/UpdateTodoRequest'
