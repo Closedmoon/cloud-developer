@@ -10,6 +10,7 @@ export class TodoDataAccess {
         private readonly todoTable = process.env.TODO_TABLE,
         private readonly imagesBucketName = process.env.IMAGES_S3_BUCKET,
         private readonly urlExpiration = process.env.SIGNED_URL_EXPIRATION,
+        private readonly indexName = process.env.INDEX_NAME,
         private readonly s3 = new AWS.S3({
             signatureVersion: 'v4'
           }) ) { }
@@ -26,15 +27,14 @@ export class TodoDataAccess {
     async getTodos(userId: string): Promise<TodoItem[]> {
         const result = await this.docClient.query({
             TableName: this.todoTable,
+            IndexName: this.indexName,
             KeyConditionExpression: 'userId = :userId',
             ExpressionAttributeValues: {
                 ':userId': userId
-            },
-            ScanIndexForward: false
+            }
         }).promise()
 
         const items = result.Items
-
         return items as TodoItem[]
     }
 
