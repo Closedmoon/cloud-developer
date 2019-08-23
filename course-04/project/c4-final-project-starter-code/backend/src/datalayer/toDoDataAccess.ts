@@ -65,6 +65,21 @@ export class TodoDataAccess {
 
     }
 
+    async IsValidTodoId(todoId: string) {
+
+        const result = await this.docClient
+        .get({
+          TableName: this.todoTable,
+          Key: {
+            todoId: todoId
+          }
+        })
+        .promise()
+    
+      return !!result.Item
+
+    }
+
     async updateTodo(todoId: string, todoUpdate: TodoUpdate) {
 
         var params = {

@@ -14,7 +14,7 @@ provider:
 
   environment:
     TODO_TABLE: Todos-${self:provider.stage}
-    IMAGES_S3_BUCKET: srvrless-todoimages-mk9239-${self:provider.stage}
+    IMAGES_S3_BUCKET: srvrless-todoimages-mk9237-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     INDEX_NAME: UserIdIndex
 
@@ -98,6 +98,18 @@ functions:
 
 resources:
   Resources:
+
+    GatewayResponseDefault4XX:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: ApiGatewayRestApi
+
     TodosTable:
       Type: AWS::DynamoDB::Table
       Properties:
