@@ -1,7 +1,10 @@
 import * as AWS from 'aws-sdk'
+import * as AWSXray from 'aws-xray-sdk'
 
 import { TodoItem } from '../models/TodoItem'
 import { TodoUpdate } from '../models/TodoUpdate'
+
+const XAWS = AWSXray.captureAWS(AWS)
 
 export class TodoDataAccess {
 
@@ -11,7 +14,7 @@ export class TodoDataAccess {
         private readonly imagesBucketName = process.env.IMAGES_S3_BUCKET,
         private readonly urlExpiration = process.env.SIGNED_URL_EXPIRATION,
         private readonly indexName = process.env.INDEX_NAME,
-        private readonly s3 = new AWS.S3({
+        private readonly s3 = new XAWS.S3({
             signatureVersion: 'v4'
           }) ) { }
 
@@ -114,5 +117,5 @@ export class TodoDataAccess {
 }
 
 function createDynamoDBClient() {
-    return new AWS.DynamoDB.DocumentClient()
+    return new XAWS.DynamoDB.DocumentClient()
 }
