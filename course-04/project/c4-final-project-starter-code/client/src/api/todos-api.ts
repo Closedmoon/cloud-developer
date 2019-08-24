@@ -69,5 +69,11 @@ export async function getUploadUrl(
 }
 
 export async function uploadFile(uploadUrl: string, file: Buffer): Promise<void> {
-  await Axios.put(uploadUrl, file)
+  var options = {
+    headers: {
+      'Content-Type': 'text/plain'
+    }
+  };
+
+  await Axios.put(uploadUrl, file, options)
 }
